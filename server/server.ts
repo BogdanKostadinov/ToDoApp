@@ -5,6 +5,7 @@ import fs from 'fs/promises';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import Task from '../src/app/models/task.model';
+import cors from 'cors';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -12,6 +13,13 @@ const PORT = process.env['PORT'] ? process.env['PORT'] : 3500;
 
 // Middleware
 app.use(express.json());
+
+const allowedOrigins = ['http://localhost:4200', 'http://localhost:3500'];
+
+const options: cors.CorsOptions = {
+  origin: allowedOrigins,
+};
+app.use(cors(options));
 
 const getDBData = async (): Promise<Array<Task>> => {
   const dbData = await fs.readFile(
