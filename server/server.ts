@@ -25,10 +25,7 @@ const getDBData = async (): Promise<Array<Task>> => {
 // Requests
 app.get('/tasks', async (req: Request, res: Response) => {
   try {
-    const dbData = await fs.readFile(
-      path.join(__dirname, '..', 'db', 'db.json'),
-      'utf-8'
-    );
+    const dbData = await getDBData();
     res.status(200).send(dbData);
   } catch (error) {
     console.log(error);
@@ -61,9 +58,9 @@ app.post('/task', async (req: Request, res: Response) => {
   }
 });
 
-app.put('/task', async (req: Request, res: Response) => {
+app.put('/task/:id', async (req: Request, res: Response) => {
   const dbData = await getDBData();
-  const taskToEditID = req.body.id;
+  const taskToEditID = parseInt(req.params['id']);
 
   const fileteredTask: Task | undefined = dbData.find(
     (task: Task) => task.id === taskToEditID
@@ -94,9 +91,9 @@ app.put('/task', async (req: Request, res: Response) => {
   }
 });
 
-app.delete('/task', async (req: Request, res: Response) => {
+app.delete('/task/:id', async (req: Request, res: Response) => {
   const dbData = await getDBData();
-  const taskToDeleteID = req.body.id;
+  const taskToDeleteID: number = parseInt(req.params['id']);
 
   const fileteredTaskList: Array<Task> = dbData.filter(
     (task: Task) => task.id !== taskToDeleteID
