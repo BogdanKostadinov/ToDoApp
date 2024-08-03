@@ -1,19 +1,10 @@
-{
-  "tasks": [
-    {
-      "id": 1,
-      "name": "walking",
-      "completed": true
-    },
-    {
-      "id": 2,
-      "name": "running",
-      "completed": false
-    },
-    {
-      "id": 3,
-      "name": "shopping",
-      "completed": true
-    }
-  ]
-}
+[
+  { "id": 1, "name": "walking", "description": "normal", "completed": true },
+  { "id": 2, "name": "running", "description": "normal", "completed": false },
+  {
+    "id": 3,
+    "name": "shop for food",
+    "description": "normal",
+    "completed": false
+  }
+]
