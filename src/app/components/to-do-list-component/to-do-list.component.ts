@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Item } from '../../models/item.model';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import Task from '../../models/task.model';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 
@@ -9,14 +9,15 @@ import { SelectionModel } from '@angular/cdk/collections';
   styleUrl: './to-do-list.component.scss',
 })
 export class ToDoListComponent implements OnInit {
-  @Input() items!: Item[];
+  @Input() tasks: Task[] = [];
+  @Output() deleteTaskEvent = new EventEmitter<number>();
 
   displayedColumns: string[] = ['select', 'name', 'description', 'delete'];
-  dataSource = new MatTableDataSource<Item>([]);
-  selection = new SelectionModel<Item>(true, []);
+  dataSource = new MatTableDataSource<Task>([]);
+  selection = new SelectionModel<Task>(true, []);
 
   ngOnInit(): void {
-    this.dataSource.data = this.items;
+    this.dataSource.data = this.tasks;
   }
 
   applyFilter(event: Event) {
@@ -39,7 +40,8 @@ export class ToDoListComponent implements OnInit {
     this.selection.select(...this.dataSource.data);
   }
 
-  deleteItem(item: Item) {
-    this.dataSource.data = this.dataSource.data.filter((i) => i.id !== item.id);
+  deleteTask(task: Task) {
+    this.deleteTaskEvent.emit(task.id);
+    // this.dataSource.data = this.dataSource.data.filter((i) => i.id !== task.id);
   }
 }

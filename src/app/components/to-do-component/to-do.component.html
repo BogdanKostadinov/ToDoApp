@@ -1,1 +1,6 @@
-<app-to-do-list [items]="items"></app-to-do-list>
+<ng-container *ngIf="tasks$ | async as tasks">
+  <app-to-do-list
+    [tasks]="tasks"
+    (deleteTaskEvent)="deleteTask($event)"
+  ></app-to-do-list>
+</ng-container>

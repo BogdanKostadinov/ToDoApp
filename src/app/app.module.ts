@@ -14,10 +14,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent, ToDoListComponent, ToDoComponent],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     MatTableModule,

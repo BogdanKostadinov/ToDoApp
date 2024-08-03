@@ -1,15 +1,20 @@
 import { Component } from '@angular/core';
-import { Item } from '../../models/item.model';
+import { Observable } from 'rxjs';
+import { TaskService } from '../../services/task.service';
+import Task from '../../models/task.model';
 
 @Component({
   selector: 'app-to-do',
   templateUrl: './to-do.component.html',
-  styleUrl: './to-do.component.scss'
+  styleUrl: './to-do.component.scss',
 })
 export class ToDoComponent {
-  items: Item[] = [
-    { id: 1, name: 'Item 1', description: 'Description 1' },
-    { id: 2, name: 'Item 2', description: 'Description 2' },
-    { id: 3, name: 'Item 3', description: 'Description 3' },
-  ];
+  tasks$: Observable<Task[]>;
+  constructor(private taskService: TaskService) {
+    this.tasks$ = this.taskService.getAllTasks();
+  }
+
+  deleteTask(id: number) {
+    this.taskService.deleteTask(id);
+  }
 }
