@@ -20,7 +20,7 @@ const options: cors.CorsOptions = {
   origin: allowedOrigins,
 };
 app.use(cors(options));
-
+// comment 
 const getDBData = async (): Promise<Array<Task>> => {
   try {
     const dbData = await fs.readFile(
