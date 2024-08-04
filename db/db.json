@@ -1,1 +1,14 @@
-[{"id":1,"name":"walking","description":"normal","completed":true},{"id":2,"name":"running","description":"normal","completed":false}]
+[
+    {"id":1,"name":"walking","description":"normal","completed":true},
+    {"id":2,"name":"running","description":"normal","completed":false},
+    {"id":3,"name":"reading","description":"important","completed":true},
+    {"id":4,"name":"coding","description":"work","completed":false},
+    {"id":5,"name":"exercising","description":"health","completed":true},
+    {"id":6,"name":"cleaning","description":"chores","completed":false},
+    {"id":7,"name":"shopping","description":"errands","completed":true},
+    {"id":8,"name":"cooking","description":"daily","completed":false},
+    {"id":9,"name":"painting","description":"hobby","completed":true},
+    {"id":10,"name":"writing","description":"creativity","completed":false},
+    {"id":11,"name":"gardening","description":"outdoor","completed":true},
+    {"id":12,"name":"meditating","description":"mental health","completed":false}
+]
