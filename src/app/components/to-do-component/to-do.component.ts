@@ -15,6 +15,6 @@ export class ToDoComponent {
   }
 
   deleteTask(id: number) {
-    this.taskService.deleteTask(id);
+    this.taskService.deleteTask(id).subscribe();
   }
 }

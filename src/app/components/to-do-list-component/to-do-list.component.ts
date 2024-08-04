@@ -41,7 +41,7 @@ export class ToDoListComponent implements OnInit {
   }
 
   deleteTask(task: Task) {
+    this.dataSource.data = this.dataSource.data.filter((d) => d.id !== task.id);
     this.deleteTaskEvent.emit(task.id);
-    // this.dataSource.data = this.dataSource.data.filter((i) => i.id !== task.id);
   }
 }
