@@ -22,22 +22,47 @@ const options: cors.CorsOptions = {
 app.use(cors(options));
 
 const getDBData = async (): Promise<Array<Task>> => {
-  const dbData = await fs.readFile(
-    path.join(__dirname, '..', 'db', 'db.json'),
-    'utf-8'
-  );
-  const dbDataJSON: Array<Task> = JSON.parse(dbData);
-  return dbDataJSON;
+  try {
+    const dbData = await fs.readFile(
+      path.join(__dirname, '..', 'db', 'db.json'),
+      'utf-8'
+    );
+    const dbDataJSON: Array<Task> = JSON.parse(dbData);
+    return dbDataJSON;
+  } catch (error) {
+    console.log('getDBData error: ', error);
+    throw new Error('Could not get DB data.');
+  }
 };
 
 // Requests
 app.get('/tasks', async (req: Request, res: Response) => {
   try {
     const dbData = await getDBData();
-    res.status(200).send(dbData);
+
+    if (!dbData || dbData.length <= 0) return res.sendStatus(404);
+
+    return res.status(200).send(dbData);
   } catch (error) {
     console.log(error);
-    res.sendStatus(400);
+    return res.sendStatus(400);
+  }
+});
+
+app.get('/task/:id', async (req: Request, res: Response) => {
+  const taskToGetID = parseInt(req.params['id']);
+
+  try {
+    const dbData = await getDBData();
+
+    const filteredTask = dbData.find((task: Task) => task.id === taskToGetID);
+
+    if (!filteredTask) return res.sendStatus(404);
+
+    return res.status(200).send(filteredTask);
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(400);
   }
 });
 
@@ -59,10 +84,10 @@ app.post('/task', async (req: Request, res: Response) => {
       JSON.stringify(newTaskList)
     );
 
-    res.sendStatus(201);
+    return res.sendStatus(201);
   } catch (error) {
     console.log(error);
-    res.sendStatus(400);
+    return res.sendStatus(400);
   }
 });
 
